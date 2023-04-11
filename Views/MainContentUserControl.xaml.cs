@@ -97,6 +97,7 @@ namespace LockAndKey.Views
             SetNewButtonsStatus();
             SetTextFieldsEmpty();
             SetFieldsEnabled();
+            xName.IsEnabled = true;
         }
 
         private void xEdit_Click(object sender, RoutedEventArgs e)
@@ -203,10 +204,17 @@ namespace LockAndKey.Views
             var name = ViewModel.SelectedItem != null ? ViewModel.SelectedItem.Name : xName.Text;
             try
             {
-                ViewModel.SaveItem(xName.Text, xUsername.Text, xWebsite.Text, xPasswordHidden.Password, xNotes.Text);
-                var message = String.Format(Constants.ItemSaveSuccess, name);
-                _notificationManager.Show(message, NotificationType.Success);
-                SetUpdatedContent();
+                if (ViewModel.SaveItem(xName.Text, xUsername.Text, xWebsite.Text, xPasswordHidden.Password, xNotes.Text))
+                {
+                    var message = String.Format(Constants.ItemSaveSuccess, name);
+                    _notificationManager.Show(message, NotificationType.Success);
+                    SetUpdatedContent();
+                }
+                else
+                {
+                    var message = String.Format(Constants.ItemDuplicate);
+                    _notificationManager.Show(message, NotificationType.Warning);
+                }
             }
             catch
             {
@@ -247,7 +255,6 @@ namespace LockAndKey.Views
         private void SetTextFieldsEmpty()
         {
             ViewModel.SelectedItem = null;
-            xName.IsEnabled = true;
             xName.Text = String.Empty;
             xWebsite.Text = String.Empty;
             xUsername.Text = String.Empty;

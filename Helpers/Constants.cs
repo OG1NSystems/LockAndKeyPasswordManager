@@ -72,6 +72,7 @@ namespace LockAndKey.Helpers
         public const String ItemDeleteFailure = "The was an error deleting {0}, please try again.";
         public const String ItemSaveSuccess = "{0} was saved successfully.";
         public const String ItemSaveFailure = "There was an error saving {0}, please try again.";
+        public const String ItemDuplicate = "There is already a item saved with that name, please choose a different name.";
 
         #endregion
     }

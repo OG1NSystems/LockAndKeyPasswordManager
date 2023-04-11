@@ -92,13 +92,21 @@ namespace LockAndKey.ViewModels
             }
         }
 
-        internal void SaveItem(String name, String username, String website, String password, String notes)
+        internal Boolean SaveItem(String name, String username, String website, String password, String notes)
         {
+            var isSuccessful = true;
             if (_selectedItem == null)
             {
-                var itemToBeSaved = new Item(_authentication.CurrentUser.Id, name, username, website, password, notes);
-                ItemDal.InsertNewItem(_connection, itemToBeSaved, _authentication);
-                _selectedItem = itemToBeSaved;
+                if (WebsiteList.ContainsKey(name))
+                {
+                    isSuccessful = false;
+                }
+                else
+                {
+                    var itemToBeSaved = new Item(_authentication.CurrentUser.Id, name, username, website, password, notes);
+                    ItemDal.InsertNewItem(_connection, itemToBeSaved, _authentication);
+                    _selectedItem = itemToBeSaved;
+                }
             }
             else
             {
@@ -106,6 +114,7 @@ namespace LockAndKey.ViewModels
                 ItemDal.UpdateExistingItem(_connection, _selectedItem, _authentication);
             }
             GetContent();
+            return isSuccessful;
         }
 
         private void SetSelectedItemFields(String username, String website, String password, String notes)
