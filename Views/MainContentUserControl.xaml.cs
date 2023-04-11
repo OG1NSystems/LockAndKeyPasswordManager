@@ -94,9 +94,7 @@ namespace LockAndKey.Views
 
         private void xNew_Click(object sender, RoutedEventArgs e)
         {
-            xNew.IsEnabled = false;
-            xName.IsEnabled = true;
-            xCancel.IsEnabled = true;
+            SetNewButtonsStatus();
             SetTextFieldsEmpty();
             SetFieldsEnabled();
         }
@@ -135,7 +133,6 @@ namespace LockAndKey.Views
             else if (ViewModel.SelectedItem != null)
             {
                 xWebsites.SelectedItem = null;
-                ViewModel.SelectedItem = null;
                 SetButtonsDisabled();
                 SetTextFieldsEmpty();
             }
@@ -236,10 +233,21 @@ namespace LockAndKey.Views
             xEdit.IsEnabled = false;
             xDeleteSave.IsEnabled = false;
             xCancel.IsEnabled = false;
+            xNew.IsEnabled = true;
+        }
+
+        private void SetNewButtonsStatus()
+        {
+            xNew.IsEnabled = false;
+            xCancel.IsEnabled = true;
+            xPasswordCopy.IsEnabled = false;
+            xUsernameCopy.IsEnabled = false;
         }
 
         private void SetTextFieldsEmpty()
         {
+            ViewModel.SelectedItem = null;
+            xName.IsEnabled = true;
             xName.Text = String.Empty;
             xWebsite.Text = String.Empty;
             xUsername.Text = String.Empty;

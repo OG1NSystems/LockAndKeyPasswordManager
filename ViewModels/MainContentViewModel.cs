@@ -102,9 +102,21 @@ namespace LockAndKey.ViewModels
             }
             else
             {
+                SetSelectedItemFields(username, website, password, notes);
                 ItemDal.UpdateExistingItem(_connection, _selectedItem, _authentication);
             }
             GetContent();
+        }
+
+        private void SetSelectedItemFields(String username, String website, String password, String notes)
+        {
+            if (_selectedItem != null)
+            {
+                _selectedItem.Username = username;
+                _selectedItem.Website = website;
+                _selectedItem.Password = password;
+                _selectedItem.Notes = notes;
+            }
         }
 
         internal void DeleteItem()
