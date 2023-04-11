@@ -1,0 +1,317 @@
+﻿<UserControl x:Class="LockAndKey.Views.MainContentUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             d:DesignHeight="475" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Image x:Key="ShowPassword" Source="../Resources/ShowPassword.png"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+
+        <!--#region Website List-->
+        <Border x:Name="xWebsiteList" CornerRadius="5" Grid.Column="0" BorderThickness="3" BorderBrush="#6EB5FF" Margin="5,5" Background="#ACE7FF">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="35" />
+                    <RowDefinition Height="350" />
+                    <RowDefinition Height="35" />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Margin="0,1,0,4">
+                    SAVED PASSWORDS
+                </TextBlock>
+                <ScrollViewer Grid.Row="1" Margin="0,2,0,0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" BorderThickness="0">
+                    <ListView x:Name="xWebsites" BorderThickness="0" Background="Transparent" SelectionMode="Single" SelectionChanged="ListView_SelectionChanged" HorizontalContentAlignment="Stretch">
+                        <ListView.ItemTemplate>
+                            <DataTemplate DataType="x:Dictionary">
+                                <Border CornerRadius="5" BorderThickness="1" BorderBrush="#FFF5BA" Padding="5" Background="#AFCBFF">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Row="0" Text="{Binding Path=Key}" FontWeight="Bold" FontSize="12" />
+                                        <TextBlock Grid.Row="1" Text="{Binding Path=Value}" FontSize="8" Margin="5,0,0,0"/>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </ScrollViewer>
+                <Button x:Name="xNew"
+                        Grid.Row="2"
+                        Background="#FFF5BA"
+                        BorderThickness="0"
+                        Height="30"
+                        Margin="5,2,5,3"
+                        FontWeight="Bold"
+                        FontSize="20" 
+                        Content="NEW" 
+                        Click="xNew_Click">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </Grid>
+        </Border>
+        <!--#endregion-->
+
+        <!--#region Record Details-->
+        <Border x:Name="xDetails" CornerRadius="5" Grid.Column="1" BorderThickness="3" BorderBrush="#6EB5FF" Margin="5,5" Background="#ACE7FF">
+            <StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="75" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="35" />
+                        <RowDefinition Height="35" />
+                        <RowDefinition Height="35" />
+                        <RowDefinition Height="35" />
+                        <RowDefinition Height="35" />
+                        <RowDefinition MinHeight="210" />
+                        <RowDefinition Height="35" />
+                    </Grid.RowDefinitions>
+
+                    <!--#region Header-->
+                    <TextBlock Grid.ColumnSpan="3" 
+                               Grid.Row="0" 
+                               HorizontalAlignment="Center" 
+                               VerticalAlignment="Center" 
+                               FontWeight="Bold" 
+                               Margin="0,1,0,4">
+                        WEBSITE AND PASSWORD INFORMATION
+                    </TextBlock>
+                    <!--#endregion-->
+
+                    <!--#region Name-->
+                    <TextBlock Grid.Column="0" 
+                               Grid.Row="1" 
+                               HorizontalAlignment="Left" 
+                               VerticalAlignment="Center"
+                               FontWeight="Bold"
+                               Margin="5,2,0,2">
+                        NAME:
+                    </TextBlock>
+                    <Border Grid.Column="1"
+                            Grid.ColumnSpan="2" 
+                            Grid.Row="1" 
+                            Margin="0,2,5,2"
+                            CornerRadius="3"
+                            BorderThickness="3"
+                            BorderBrush="#6EB5FF">
+                        <TextBox x:Name="xName" IsEnabled="False" BorderThickness="0" VerticalContentAlignment="Center" Text="{Binding Path=SelectedItem.Name}"/>
+                    </Border>
+                    <!--#endregion-->
+
+                    <!--#region Website-->
+                    <TextBlock Grid.Column="0" 
+                               Grid.Row="2" 
+                               HorizontalAlignment="Left" 
+                               VerticalAlignment="Center"
+                               FontWeight="Bold"
+                               Margin="5,2,0,2">
+                        WEBSITE:
+                    </TextBlock>
+                    <Border Grid.Column="1"
+                            Grid.ColumnSpan="2" 
+                            Grid.Row="2" 
+                            Margin="0,2,5,2"
+                            CornerRadius="3"
+                            BorderThickness="3"
+                            BorderBrush="#6EB5FF">
+                        <TextBox x:Name="xWebsite" IsEnabled="False" BorderThickness="0" VerticalContentAlignment="Center" Text="{Binding Path=SelectedItem.Website}"/>
+                    </Border>
+                    <!--#endregion-->
+
+                    <!--#region Username-->
+                    <TextBlock Grid.Column="0" 
+                               Grid.Row="3" 
+                               HorizontalAlignment="Left" 
+                               VerticalAlignment="Center"
+                               FontWeight="Bold"
+                               Margin="5,2,0,2">
+                        USERNAME:
+                    </TextBlock>
+                    <Border Grid.Column="1" 
+                            Grid.Row="3" 
+                            Margin="0,2,2,2"
+                            CornerRadius="3"
+                            BorderThickness="3"
+                            BorderBrush="#6EB5FF">
+                        <TextBox x:Name="xUsername" IsEnabled="False" BorderThickness="0" VerticalContentAlignment="Center" Text="{Binding Path=SelectedItem.Website}"/>
+                    </Border>
+                    <Button x:Name="xUsernameCopy"
+                            Grid.Column="2"
+                            Grid.Row="3"
+                            Background="#FFF5BA"
+                            BorderThickness="0"
+                            Height="30"
+                            Margin="2,2,5,2"
+                            FontWeight="Bold"
+                            FontSize="20" 
+                            Content="COPY" 
+                            Click="xUsernameCopy_Click">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                    <!--#endregion-->
+
+                    <!--#region Password-->
+                    <TextBlock Grid.Column="0" 
+                               Grid.Row="4" 
+                               HorizontalAlignment="Left" 
+                               VerticalAlignment="Center"
+                               FontWeight="Bold"
+                               Margin="5,2,0,2">
+                        PASSWORD:
+                    </TextBlock>
+                    <Border Grid.Column="1" 
+                            Grid.Row="4" 
+                            Margin="0,2,2,2"
+                            CornerRadius="3"
+                            BorderThickness="3"
+                            BorderBrush="#6EB5FF">
+                        <Grid Margin="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="20" />
+                            </Grid.ColumnDefinitions>
+
+                            <PasswordBox Grid.Column="0" x:Name="xPasswordHidden" BorderThickness="0" VerticalContentAlignment="Center" />
+                            <TextBox Grid.Column="0" IsEnabled="False" x:Name="xPasswordShow" BorderThickness="0" VerticalContentAlignment="Center" Visibility="Hidden" />
+
+                            <Button x:Name="xPasswordReveal"
+                                    Grid.Column="1"
+                                    Background="#FFF5BA"
+                                    BorderThickness="0"
+                                    Height="25"
+                                    Content="{StaticResource ShowPassword}"
+                                    PreviewMouseDown="xPasswordReveal_MouseDown"
+                                    PreviewMouseUp="xPasswordReveal_MouseUp"
+                                    MouseLeave="xPasswordReveal_MouseLeave">
+                                <Button.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="2"/>
+                                    </Style>
+                                </Button.Resources>
+                            </Button>
+                        </Grid>
+                    </Border>
+                    <Button x:Name="xPasswordCopy"
+                            Grid.Column="2"
+                            Grid.Row="4"
+                            Background="#FFF5BA"
+                            BorderThickness="0"
+                            Height="30"
+                            Margin="2,2,5,2"
+                            FontWeight="Bold"
+                            FontSize="20" 
+                            Content="COPY" 
+                            Click="xPasswordCopy_Click">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                    <!--#endregion-->
+
+                    <!--#region Notes-->
+                    <TextBlock Grid.Column="0" 
+                               Grid.Row="5" 
+                               HorizontalAlignment="Left" 
+                               VerticalAlignment="Top"
+                               FontWeight="Bold"
+                               Margin="5,2,0,2"
+                               Padding="0,3">
+                        NOTES:
+                    </TextBlock>
+                    <Border Grid.Column="1"
+                            Grid.ColumnSpan="2"
+                            Grid.Row="5" 
+                            Margin="0,2,5,2"
+                            CornerRadius="3"
+                            BorderThickness="3"
+                            BorderBrush="#6EB5FF">
+                        <TextBox x:Name="xNotes" IsEnabled="False" BorderThickness="0" VerticalContentAlignment="Top" TextWrapping="Wrap" Text="{Binding Path=SelectedItem.Notes}"/>
+                    </Border>
+                    <!--#endregion-->
+
+                    <!--#region Buttons-->
+                    <StackPanel Grid.ColumnSpan="3" Grid.Row="6" VerticalAlignment="Center">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Button x:Name="xEdit"
+                                    Grid.Column="0"
+                                    Background="#FFF5BA"
+                                    BorderThickness="0"
+                                    Height="30"
+                                    Margin="5,2,2,3"
+                                    FontWeight="Bold"
+                                    FontSize="20" 
+                                    Content="EDIT" 
+                                    Click="xEdit_Click">
+                                <Button.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="10"/>
+                                    </Style>
+                                </Button.Resources>
+                            </Button>
+                            <Button x:Name="xDeleteSave"
+                                    Grid.Column="1"
+                                    Background="#FFF5BA"
+                                    BorderThickness="0"
+                                    Height="30"
+                                    Margin="2,2,2,3"
+                                    FontWeight="Bold"
+                                    FontSize="20" 
+                                    Click="xDeleteSave_Click">
+                                <Button.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="10"/>
+                                    </Style>
+                                </Button.Resources>
+                            </Button>
+                            <Button x:Name="xCancel"
+                                    Grid.Column="2"
+                                    Background="#FFF5BA"
+                                    BorderThickness="0"
+                                    Height="30"
+                                    Margin="2,2,5,3"
+                                    FontWeight="Bold"
+                                    FontSize="20" 
+                                    Content="CANCEL"
+                                    Click="xCancel_Click">
+                                <Button.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="10"/>
+                                    </Style>
+                                </Button.Resources>
+                            </Button>
+                        </Grid>
+                    </StackPanel>
+                    <!--#endregion-->
+
+                </Grid>
+            </StackPanel>
+        </Border>
+        <!--#endregion-->
+    </Grid>
+</UserControl>

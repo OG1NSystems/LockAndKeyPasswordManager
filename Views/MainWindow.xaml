@@ -1,0 +1,14 @@
+﻿<Window x:Class="LockAndKey.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Icon="/Resources/LK.ico"
+        Background="#AFCBFF"
+        x:Name="xMainScreen"
+        WindowStartupLocation="CenterScreen" 
+        DataContext="{Binding Path=ViewModel}"
+        Title="Lock And Key Password Manager" MinHeight="475" MinWidth="800" MaxHeight="475" MaxWidth="800">
+    <Grid x:Name="xMainGrid" />
+</Window>
