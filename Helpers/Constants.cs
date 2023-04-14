@@ -11,13 +11,12 @@ namespace LockAndKey.Helpers
         public const String UserTableSqlString = "CREATE TABLE Users (Id INTEGER PRIMARY KEY AUTOINCREMENT, Username NVARCHAR(256), PasswordHash BLOB, PasswordSalt BLOB, LockedOutDate NUMERIC, LockedOutCount INTEGER)";
         public const String DataTableSqlString = "CREATE TABLE Data (UserId INTEGER, Name NVARCHAR(256), Username NVARCHAR(256), Website NVARCHAR(1000), Password BLOB, Notes NVARCHAR(3000))";
         public const String InsertUserSqlString = "INSERT INTO Users (Username, PasswordHash, PasswordSalt, LockedOutDate, LockedOutCount) VALUES (@username, @hash, @salt, null, 0)";
-        public const String FetchUserSqlString = "SELECT * FROM Users WHERE Username = '{0}'";
-        public const String UpdateUserLockedOutSqlString = "UPDATE Users SET LockedOutDate = @date, LockedOutCount = @count WHERE Username = '{0}'";
-        public const String UpdateUserPasswordSqlString = "UPDATE Users SET PasswordHash = @hash, PasswordSalt = @salt WHERE Username = '{0}'";
-        public const String FetchAllDataItemsString = "SELECT * FROM Data WHERE UserId = {0}";
+        public const String FetchUserSqlString = "SELECT * FROM Users WHERE Username = @username";
+        public const String UpdateUserLockedOutSqlString = "UPDATE Users SET LockedOutDate = @date, LockedOutCount = @count WHERE Username = @username";
+        public const String FetchAllDataItemsString = "SELECT * FROM Data WHERE UserId = @userID";
         public const String InsertDataItemSqlString = "INSERT INTO Data (UserId, Name, Username, Website, Password, Notes) VALUES (@userID, @name, @username, @website, @password, @notes)";
-        public const String DeleteDataItemString = "DELETE FROM Data WHERE UserId = {0} AND Name = '{1}'";
-        public const String UpdateDataItemString = "UPDATE Data SET Username = @username, Website = @website, Password = @password, Notes = @notes WHERE UserId = {0} AND Name = '{1}'";
+        public const String DeleteDataItemString = "DELETE FROM Data WHERE UserId = @userID AND Name = @name";
+        public const String UpdateDataItemString = "UPDATE Data SET Username = @username, Website = @website, Password = @password, Notes = @notes WHERE UserId = @userID AND Name = @name";
 
         #endregion
 

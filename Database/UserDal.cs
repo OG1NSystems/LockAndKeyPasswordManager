@@ -21,9 +21,9 @@ namespace LockAndKey.Database
 
         public static User GetCurrentUser(SqliteConnection connection, String username)
         {
-            var fetchString = String.Format(Constants.FetchUserSqlString, username);
-            using (SqliteCommand fetchUserCommand = new(fetchString, connection))
+            using (SqliteCommand fetchUserCommand = new(Constants.FetchUserSqlString, connection))
             {
+                fetchUserCommand.Parameters.Add(new SqliteParameter("username", username));
                 SqliteDataReader reader = fetchUserCommand.ExecuteReader();
                 if (reader.Read())
                 {
@@ -49,9 +49,11 @@ namespace LockAndKey.Database
         public static void UpdateLockedOutUser(SqliteConnection connection, String username, Int32 lockedOutCount)
         {
             DateTime? date = lockedOutCount > 0 ? DateTime.UtcNow : null;
-            var updateString = String.Format(Constants.UpdateUserLockedOutSqlString, date, lockedOutCount, username);
-            using (SqliteCommand updateUserCommand = new(updateString, connection))
+            using (SqliteCommand updateUserCommand = new(Constants.UpdateUserLockedOutSqlString, connection))
             {
+                updateUserCommand.Parameters.Add(new SqliteParameter("username", username));
+                updateUserCommand.Parameters.Add(new SqliteParameter("date", date));
+                updateUserCommand.Parameters.Add(new SqliteParameter("count", lockedOutCount));
                 updateUserCommand.ExecuteNonQuery();
             }
         }
